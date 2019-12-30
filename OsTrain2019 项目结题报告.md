@@ -12,7 +12,7 @@
 
 ​	主要基于 rcore [https://github.com/rcore-os/rCore]，无其他相关工作。
 
-
+​	主要代码参考也来自于rcore其他部分，知识性内容参考了大量博客。
 
 ## 3. 实现方案
 
@@ -172,7 +172,7 @@
 
   一段十分丑陋的字符串处理，由于我对与rust不是十分熟悉，只能写出这样暴力难看的代码。功能就是如果一个正常的语句以 `“kexec”`开头，就认为会在特殊模式下执行一个程序，去掉这个前缀，并使用 `Thread::new_kernel_from_inode()` 加载，而非普通的 `Thread::new_user()`。
 
-*  src/process/structs.rs 
+* src/process/structs.rs 
 
   仅仅做了一些关于权限的很 naive 的修改。重定位了动态加载器。
 
@@ -222,5 +222,33 @@
       }
   ```
 
-  
+* memory 模块的修改
+
+  // 由于代码丢失，后补
+
+* syscall 的修改
+
+  // 由于代码丢失，后补
+
+* alltraps.asm 的修改
+
+  // 由于代码丢失，后补
+
+## 后续完善
+
+* 更加全面的测试
+
+  Nginx 报错退出。推测是文件IO的复杂系统调用仍不兼容。
+
+* 舍弃fork
+
+  放弃fork，提供全新的系统调用完成 fork+exec的功能。可以在纯内核stack的情况下运行程序。
+
+* shell
+
+  移植ucore shell。
+
+* 支持更多的架构
+
+  支持 arm，mips，riscv。该项目硬件相关性很强 ，由于涉及到了不少汇编，移植工作较多，但是修改思路基本可以照搬。
 
